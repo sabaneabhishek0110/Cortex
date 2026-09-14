@@ -12,11 +12,7 @@ A multi-tenant, event-driven microservices platform that lets organizations secu
 - [Tech Stack](#tech-stack)
 - [Core Features](#core-features)
 - [Data Flow](#data-flow)
-- [Getting Started](#getting-started)
 - [Environment Variables](#environment-variables)
-- [Project Structure](#project-structure)
-- [Roadmap](#roadmap)
-- [License](#license)
 
 ---
 
@@ -89,31 +85,6 @@ Each service owns its own data — there is no shared database — and services 
 
 ---
 
-## Getting Started
-
-```bash
-# Clone the repository
-git clone https://github.com/<your-username>/cortex-ai-platform.git
-cd cortex-ai-platform
-
-# Copy environment variables
-cp .env.example .env
-
-# Start core infrastructure (Postgres, Redis, LocalStack for SNS/SQS)
-docker-compose up -d
-
-# Install dependencies for a service (repeat per service)
-cd services/document-service
-pip install -r requirements.txt
-
-# Run a service locally
-uvicorn app.main:app --reload --port 8001
-```
-
-> Each service under `services/` can be run and deployed independently. See each service's own `README.md` for service-specific setup.
-
----
-
 ## Environment Variables
 
 | Variable | Description |
@@ -129,8 +100,3 @@ uvicorn app.main:app --reload --port 8001
 | `JWT_SECRET` | Secret for signing auth tokens |
 
 ---
----
-
-## License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
