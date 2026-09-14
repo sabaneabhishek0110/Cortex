@@ -34,42 +34,6 @@ The system is built as independently deployable microservices communicating over
 ---
 
 ## Architecture
-
-```
-                         ┌─────────────┐
-                         │  Web Client │
-                         └──────┬──────┘
-                                │
-                         ┌──────▼──────┐
-                         │ API Gateway │
-                         └──────┬──────┘
-                                │
-        ┌───────────────────────────────────────────────────┐
-        │                 Microservices Layer                │
-        │  Auth │ Document │ Search & RAG │ Agent │ Workflow  │
-        │              │  Notification                        │
-        └───────┬───────────────────────────┬─────────────────┘
-                │                           │
-      ┌─────────▼─────────┐       ┌─────────▼──────────────┐
-      │   Data Layer       │       │  Event System (Pub/Sub) │
-      │ (DB per service)   │       │  Message Queue (SNS/SQS)│
-      │ PostgreSQL, Redis, │       └────────┬────────────────┘
-      │ Blob/S3            │                │
-      └────────────────────┘     ┌──────────┴──────────┐
-                                  │                      │
-                         ┌────────▼────────┐   ┌─────────▼─────────┐
-                         │ Document Worker  │   │ Workflow Worker    │
-                         │ Pool (extract,   │   │ Pool (automation)  │
-                         │ validate, chunk) │   └────────────────────┘
-                         └────────┬─────────┘
-                                  │
-                    ┌─────────────▼──────────────┐
-                    │ External Search & AI        │
-                    │ Elasticsearch │ Pinecone │  │
-                    │        Gemini LLM           │
-                    └──────────────────────────────┘
-```
-
 ![Cortex Architecture Diagram](architecture.png)
 
 ---
@@ -165,38 +129,6 @@ uvicorn app.main:app --reload --port 8001
 | `JWT_SECRET` | Secret for signing auth tokens |
 
 ---
-
-## Project Structure
-
-```
-cortex-ai-platform/
-├── services/
-│   ├── auth-service/
-│   ├── document-service/
-│   ├── search-rag-service/
-│   ├── agent-service/
-│   ├── workflow-service/
-│   └── notification-service/
-├── workers/
-│   ├── document-worker/
-│   └── workflow-worker/
-├── infra/
-│   ├── docker-compose.yml
-│   └── terraform/
-├── docs/
-│   └── architecture.png
-└── README.md
-```
-
----
-
-## Roadmap
-
-- [ ] Distributed tracing across services (OpenTelemetry)
-- [ ] Service mesh (mTLS, circuit breakers) as service count grows
-- [ ] Saga pattern for cross-service transactions
-- [ ] FIFO SQS queues for workflows requiring strict ordering
-
 ---
 
 ## License
