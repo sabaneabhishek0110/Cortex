@@ -70,7 +70,7 @@ The system is built as independently deployable microservices communicating over
                     └──────────────────────────────┘
 ```
 
-![Cortex Architecture Diagram](docs/architecture.png)
+![Cortex Architecture Diagram](architecture.png)
 
 ---
 
